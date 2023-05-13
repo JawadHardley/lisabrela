@@ -26,6 +26,10 @@ Route::get('/applicant/login', function () {
     return view('applicant.register');
  });
 
+ Route::get('/applicant/home', function () {
+   return view('applicant.home');
+});
+
 //  for tax officer
  Route::get('/tax/login', function () {
     return view('tax.login');
@@ -48,3 +52,11 @@ Route::get('/applicant/login', function () {
  Route::get('/root/login', function () {
     return view('admin.login');
  });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
