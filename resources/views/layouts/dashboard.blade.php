@@ -73,7 +73,25 @@
                 <span class="avatar avatar-sm" style="background-image: url(./tabler/static/avatars/000m.jpg)"></span>
                 <div class="d-none d-xl-block ps-2">
                   <div>{{ Auth::user()->firstname }} {{ Auth::user()->lastname }}</div>
-                  <div class="mt-1 small text-muted">{{ Auth::user()->role }}</div>
+                  <div class="mt-1 small text-muted">
+                    
+                    @if(Auth::user()->role == 'applicant')
+                      {{ 'Applicant' }}
+                    @endif
+                     
+                    @if(Auth::user()->role == 'admin')
+                      {{ 'Admin' }}
+                    @endif
+                    
+                    @if(Auth::user()->role == 'gvt') 
+                      {{ 'Government Official' }}
+                    @endif 
+                    
+                    @if(Auth::user()->role == 'tax')       
+                      {{ 'Tax Officer' }}
+                    @endif
+
+                  </div>
                 </div>
               </a>
               <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
@@ -87,6 +105,48 @@
                 </a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                     @csrf
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <header class="navbar-expand-md">
+        <div class="collapse navbar-collapse" id="navbar-menu">
+          <div class="navbar">
+            <div class="container-xl">
+              <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#navbar-help" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false">
+                    <span class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/lifebuoy -->
+                      <i class="fa fa-cogs"></i>
+                    </span>
+                    <span class="nav-link-title">
+                      Options
+                    </span>
+                  </a>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" href="/root/users" target="_blank" rel="noopener">
+                      Manage Users
+                    </a>
+                    <a class="dropdown-item" href="#">
+                      Changelog
+                    </a>
+                    <a class="dropdown-item" href="#" target="_blank" rel="noopener">
+                      Source code
+                    </a>
+                  </div>
+                </li>
+              </ul>
+              <div class="my-2 my-md-0 flex-grow-1 flex-md-grow-0 order-first order-md-last">
+                <form action="./" method="get" autocomplete="off" novalidate="">
+                  <div class="input-icon">
+                    <span class="input-icon-addon">
+                      <!-- Download SVG icon from http://tabler-icons.io/i/search -->
+                      <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path><path d="M21 21l-6 -6"></path></svg>
+                    </span>
+                    <input type="text" value="" class="form-control" placeholder="Search…" aria-label="Search in website">
+                  </div>
                 </form>
               </div>
             </div>

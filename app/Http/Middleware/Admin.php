@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class Admin
@@ -15,6 +16,26 @@ class Admin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        return $next($request);
+        // return $next($request);
+
+        if (!Auth::check()) {
+            return redirect('/');
+        }
+
+        if (Auth::user()->role == 'gvt') {
+            return redirect()->route('gvt');
+        }
+
+        if (Auth::user()->role == 'tax') {
+            return redirect()->route('tax');
+        }
+
+        if (Auth::user()->role == 'admin') {
+            return $next($request);
+        }
+
+        if (Auth::user()->role == 'applicant') {
+            return redirect()->route('applicant');
+        }
     }
 }

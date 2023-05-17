@@ -32,7 +32,14 @@ class LoginController extends Controller
     {
         if (auth()->user()->role == "applicant") {
             return '/applicant/home';
+        }else if (auth()->user()->role == "gvt") {
+            return '/gvt/home';
+        }else if (auth()->user()->role == "tax") {
+            return '/tax/home';
+        }else if (auth()->user()->role == "admin") {
+            return '/root/home';
         }
+
         return '/';
     }
     /**

@@ -1,6 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GvtController;
+use App\Http\Controllers\TaxController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ListingController;
+use App\Http\Controllers\ApplicantController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,44 +23,28 @@ Route::get('/', function () {
 });
 
 // for applcant
-Route::get('/applicant/login', function () {
-    return view('applicant.login');
- });
+Route::get('/applicant/login', [ApplicantController::class, 'login']);
+Route::get('/applicant/register', [ApplicantController::class, 'register']);
+Route::get('/applicant/home', [ApplicantController::class, 'index'])->name('applicant')->middleware('applicant');
 
- Route::get('/applicant/register', function () {
-    return view('applicant.register');
- });
-
- Route::get('/applicant/home', function () {
-   return view('applicant.home');
-});
 
 //  for tax officer
- Route::get('/tax/login', function () {
-    return view('tax.login');
- });
-
- Route::get('/tax/register', function () {
-    return view('tax.register');
- });
+Route::get('/tax/login', [TaxController::class, 'login']);
+Route::get('/tax/register', [TaxController::class, 'register']);
+Route::get('/tax/home', [TaxController::class, 'index'])->name('tax')->middleware('tax');
 
 //  for government official
- Route::get('/gvt/login', function () {
-    return view('gvt.login');
- });
-
- Route::get('/gvt/register', function () {
-    return view('gvt.register');
- });
+Route::get('/gvt/login', [GvtController::class, 'login']);
+Route::get('/gvt/register', [GvtController::class, 'register']);
+Route::get('/gvt/home', [GvtController::class, 'index'])->name('gvt')->middleware('gvt');
 
  //  for admin
- Route::get('/root/login', function () {
-    return view('admin.login');
- });
+ Route::get('/root/login', [AdminController::class, 'login']);
+ Route::get('/root/home', [AdminController::class, 'index'])->name('admin')->middleware('admin');
+ Route::get('/root/users', [AdminController::class, 'usermanage'])->name('usermanage')->middleware('admin');
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+ // Delete Listing
+Route::delete('/root/{listing}', [ListingController::class, 'destroy1'])->middleware('admin');
 
 Auth::routes();
 
