@@ -13,19 +13,33 @@
               <div class="card card-md">
                 <div class="card-body">
                   <h2 class="h2 text-center mb-4">Login Applicant</h2>
-                  <form method="POST" action="{{ route('login') }}" novalidate>
+                  <form method="POST" action="{{ route('login') }}">
                     @csrf
                     
-                    <div class="mb-3">
-                      <label class="form-label">Email address</label>
-                      <input type="email" name="email" class="form-control" placeholder="your@email.com" autocomplete="off">
+                    {{-- <div class="mb-3">
+                      <label for="email" class="form-label">Email address</label>
+                      <input id="email" type="email" name="email" class="form-control" placeholder="your@email.com" autocomplete="off">
                       @error('email')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
                           </span>
                       @enderror
-                    </div>
-                    <div class="mb-2">
+                    </div> --}}
+                    <div class="row">
+                      <label for="email">{{ __('Email Address') }}</label>
+
+                      <div class="col mb-3">
+                          <input id="email" type="email" placeholder="your@email.com" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+
+                          @error('email')
+                              <span class="invalid-feedback" role="alert">
+                                  <strong>{{ $message }}</strong>
+                              </span>
+                          @enderror
+                      </div>
+                  </div>
+                  <div class="row">
+                    <div class="col mb-2">
                       <label class="form-label">
                         Password
                         <span class="form-label-description">
@@ -46,6 +60,7 @@
                         </span>
                       </div>
                     </div>
+                  </div>
                     <div class="mb-2">
                       <label class="form-check">
                         <input type="checkbox" class="form-check-input" name="remember"/>

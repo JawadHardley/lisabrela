@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Listing;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -24,4 +25,7 @@ class AdminController extends Controller
             'listings' => Listing::latest()->paginate(20)
         ]);
     }
+
+    
+
 }

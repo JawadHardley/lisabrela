@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Listing;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class ListingController extends Controller
@@ -51,9 +52,28 @@ class ListingController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Listing $listing)
-    {
-        //
+    // Update user Data
+    public function stat(Request $request, Listing $listing) {
+        // Make sure logged in user is owner
+        if(Auth::user()->role != "admin") {
+            abort(403, 'Unauthorized Action');
+        }
+        // dd($user);
+        // $formFields = $request->validate([
+        //     'verified' => 'required'
+        // ]);
+        $val = "0";
+        if($listing->verified == 0) {
+            $val = 1;
+        }
+        
+        DB::table('users')
+       ->where('id', $listing->id)
+       ->update(['verified' => $val]);
+        // dd($listing);
+        // $user->update($formFields);
+
+        return back()->with('message', 'User updated successfully!');
     }
 
     /**

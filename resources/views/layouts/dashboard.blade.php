@@ -21,6 +21,7 @@
     <link href="./tabler/dist/css/tabler-vendors.min.css?1674944402" rel="stylesheet"/>
     <link href="./tabler/dist/css/demo.min.css?1674944402" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="./tabler/fonts/css/all.css">
+    <link rel="stylesheet" href="./tabler/mystyle.css">
     <style>
       @import url('https://rsms.me/inter/inter.css');
       :root {
@@ -126,12 +127,21 @@
                     </span>
                   </a>
                   <div class="dropdown-menu">
-                    <a class="dropdown-item" href="/root/users" target="_blank" rel="noopener">
+
+                    <a class="dropdown-item" href="/root/home">
+                      Dashboard
+                    </a>
+
+                    @if (Auth::user()->role == "admin")
+                    <a class="dropdown-item" href="/root/users">
                       Manage Users
                     </a>
-                    <a class="dropdown-item" href="#">
-                      Changelog
+                    @endif
+                    @if (Auth::user()->role == "applicant")
+                    <a class="dropdown-item" href="/applicant/myapps">
+                      My applications
                     </a>
+                    @endif
                     <a class="dropdown-item" href="#" target="_blank" rel="noopener">
                       Source code
                     </a>
@@ -183,5 +193,6 @@
     <!-- Tabler Core -->
     <script src="./tabler/dist/js/tabler.min.js?1674944402" defer></script>
     <script src="./tabler/dist/js/demo.min.js?1674944402" defer></script>
+    <script src="./tabler/mystyle.js" defer></script>
   </body>
 </html>

@@ -20,4 +20,9 @@ class ApplicantController extends Controller
     public function index () {
         return view('applicant.home');
     }
+
+    // Show applicant apply page
+    public function showapply () {
+        return view('applicant.apply');
+    }
 }

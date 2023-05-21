@@ -2,9 +2,17 @@
 @section('content')
 
     <div class="col-12">
+
+      @if (Session::has('message'))
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+              {{ Session::get('message') }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+      @endif
+      
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title">Invoices</h3>
+            <h3 class="card-title">Site users</h3>
           </div>
           <div class="card-body border-bottom py-3">
             <div class="d-flex">
@@ -90,32 +98,59 @@
                     <form class="float-end" method="POST" action="/root/{{$listing->id}}">
                         @csrf
                         @method('DELETE')
-                        <button type="button" class="btn btn-md btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $counter }}"><i class="fa-solid fa-trash"></i> Delete</button>
+                        <button type="button" class="btn btn-md btn-danger" data-bs-toggle="modal" data-bs-target="#modal-small{{ $counter }}"><i class="fa-solid fa-trash"></i> Delete</button>
                         <!-- Button trigger modal -->
                         {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $counter }}">
                             Launch demo modal
                         </button> --}}
                         
                         <!-- Modal -->
-                        <div class="modal fade" id="exampleModal{{ $counter }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
+                        <div class="modal modal-blur fade" id="modal-small{{ $counter }}" tabindex="-1" role="dialog" aria-hidden="true">
+                          <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
                             <div class="modal-content">
-                                <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Warning !</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                Are you sure you want to delete this user "{{ $listing->firstname }}"
-                                </div>
-                                <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancle</button>
-                                <button type="submit" class="btn btn-danger">Delete</button>
-                                </div>
+                              <div class="modal-body">
+                                <div class="modal-title">Are you sure?</div>
+                                <div>Are you sure you want to delete this user "{{ $listing->firstname }}"</div>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-link link-secondary me-auto" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">Yes, delete user</button>
+                              </div>
                             </div>
-                            </div>
+                          </div>
                         </div>
                     </form>
-                    <a href="#" class="btn btn-md btn-primary">Disable</a>
+                    <form class="float-end" method="POST" action="/root/stat/{{$listing->id}}">
+                      @csrf
+                      @method('PUT')
+                      @php 
+                        $val = 0;
+                        $namer = "Disable";
+
+                        if ($listing->verified != 1) {
+                          $val = 1;
+                          $namer = "Enable";
+                        }
+                      @endphp
+                      <button type="button" class="btn mx-1 btn-md btn-primary" data-bs-toggle="modal" data-bs-target="#modal-smalle{{ $counter }}"> {{ $namer }}</button>
+                      {{-- <input type="hidden" name="verified" value={{ $val }}> --}}
+                      
+                      <!-- Modal -->
+                      <div class="modal modal-blur fade" id="modal-smalle{{ $counter }}" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+                          <div class="modal-content">
+                            <div class="modal-body">
+                              <div class="modal-title">Are you sure?</div>
+                              <div>Are you sure you want to {{ $namer }} this user "{{ $listing->firstname }}"</div>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-link link-secondary me-auto" data-bs-dismiss="modal">Cancel</button>
+                              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Yes, {{ $namer }} user</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                  </form>
                   </td>
                 </tr>
                 @endforeach

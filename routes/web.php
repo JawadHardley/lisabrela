@@ -1,11 +1,13 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GvtController;
 use App\Http\Controllers\TaxController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\ApplicantController;
+use App\Http\Controllers\ApplicationsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,14 +20,12 @@ use App\Http\Controllers\ApplicantController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 // for applcant
 Route::get('/applicant/login', [ApplicantController::class, 'login']);
 Route::get('/applicant/register', [ApplicantController::class, 'register']);
 Route::get('/applicant/home', [ApplicantController::class, 'index'])->name('applicant')->middleware('applicant');
+Route::get('/applicant/apply', [ApplicantController::class, 'showapply'])->middleware('applicant');
 
 
 //  for tax officer
@@ -45,7 +45,16 @@ Route::get('/gvt/home', [GvtController::class, 'index'])->name('gvt')->middlewar
 
  // Delete Listing
 Route::delete('/root/{listing}', [ListingController::class, 'destroy1'])->middleware('admin');
+// Update Listing
+Route::any('/root/stat/{listing}', [ListingController::class, 'stat'])->middleware('admin');
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+// Applications
+
+// Store Listing Data
+Route::post('/applicant/submit', [ApplicationsController::class, 'store'])->middleware('applicant');
+Route::get('/applicant/myapps', [ApplicationsController::class, 'index'])->middleware('applicant');
