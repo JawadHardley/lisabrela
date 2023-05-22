@@ -23,6 +23,7 @@
     <link href="./tabler/dist/css/tabler-vendors.min.css?1674944402" rel="stylesheet"/>
     <link href="./tabler/dist/css/demo.min.css?1674944402" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="./tabler/fonts/css/all.css">
+    <link rel="stylesheet" href="./tabler/mystyle.css">
     <style>
       @import url('https://rsms.me/inter/inter.css');
       :root {
@@ -81,5 +82,6 @@
     <!-- Tabler Core -->
     <script src="./tabler/dist/js/tabler.min.js?1674944402" defer></script>
     <script src="./tabler/dist/js/demo.min.js?1674944402" defer></script>
+    <script src="./tabler/mystyle.js" defer></script>
   </body>
 </html>

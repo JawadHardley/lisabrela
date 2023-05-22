@@ -90,20 +90,19 @@
             <div class="col-md-12">
               <div class="mb-3">
                 <label class="form-label">Region</label>
-                <select class="form-control form-select" name="region">
-                  <option selected>-- select Region --</option>
-                  <option value="Dar es salaam">Dar es salaam</option>
-                  <option value="Arusha">Arusha</option>
+                <select id="region" class="form-control form-select" name="region">
+                  <option disabled selected value=""> -- select an option -- </option>
                 </select>
               </div>
             </div>
             <div class="col-md-12">
               <div class="mb-3">
                 <label class="form-label">District</label>
-                <select class="form-control form-select" name="district">
-                  <option selected>-- select District --</option>
-                  <option value="Kinondoni">Kinondoni</option>
-                  <option value="Njiro">Njiro</option>
+                <select id="district" class="form-control form-select" name="district">
+                  <option disabled selected value=""> -- select an option -- </option>
+                </select>
+                <select id="districtSel" class="form-control d-none form-select" required>
+                  <option disabled selected value="0"> -- select an option -- </option>
                 </select>
               </div>
             </div>

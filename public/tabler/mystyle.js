@@ -87,3 +87,79 @@ var currentTab = 0;
                    }
                    x[n].className += " active";
                }
+
+            
+// this is for the selects of the region
+var stateObject = {
+
+    "Kilimanjaro": { 
+            "Same": ["new Delhi", "North Delhi"],
+            "Mwanga": ["Thiruvananthapuram", "Palakkad"],
+            "Moshi Rural": ["North Goa", "South Goa"],
+            "Moshi Urban": ["North Goa", "South Goa"],
+            "Moshi Urban": ["North Goa", "South Goa"],
+            "Hai": ["North Goa", "South Goa"],
+            "Rombo": ["North Goa", "South Goa"],
+        },
+
+    "Dar es salaam": {
+            "Kinondoni": ["Dunstan", "Mitchell"],
+            "Ubungo": ["Altona", "Euroa"],
+            "Ilala": ["Altona", "Euroa"],
+            "Temeke": ["Altona", "Euroa"],
+            "Kigamboni": ["Altona", "Euroa"],
+        }, 
+    
+    "Arusha": {
+            "Karatu": ["Acadia", "Bighorn"],
+            "Karatu": ["Acadia", "Bighorn"],
+            "Longido": ["Acadia", "Bighorn"],
+            "Meru": ["Washington", ""],
+            "Meru": ["Washington", ""],
+            "Ngorongoro": ["Washington", ""],
+        },
+
+}
+
+window.onload = function () {
+    var countySel = document.getElementById("region"),
+        stateSel = document.getElementById("district"),
+        districtSel = document.getElementById("districtSel");
+
+        for (var country in stateObject) {
+            countySel.options[countySel.options.length] = new Option(country, country);
+        }
+
+        countySel.onchange = function () {
+            stateSel.length = 1; // remove all options bar first
+            districtSel.length = 1; // remove all options bar first
+
+            if (this.selectedIndex < 1) return; // done
+
+            for (var state in stateObject[this.value]) {
+
+                stateSel.options[stateSel.options.length] = new Option(state, state);
+
+            }
+
+        }
+
+        countySel.onchange(); // reset in case page is reloaded
+
+        stateSel.onchange = function () {
+
+            districtSel.length = 1; // remove all options bar first
+
+            if (this.selectedIndex < 1) return; // done
+
+            var district = stateObject[countySel.value][this.value];
+
+            for (var i = 0; i < district.length; i++) {
+
+                districtSel.options[districtSel.options.length] = new Option(district[i], district[i]);
+
+            }
+
+        }
+
+}
