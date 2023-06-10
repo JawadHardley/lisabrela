@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('memo_doc');
             $table->string('tin_doc');
             $table->integer('taxed')->nullable();
+            $table->integer('gvt')->nullable();
             $table->integer('paid')->nullable();
             $table->string('dater')->nullable();
             $table->string('expire')->nullable();

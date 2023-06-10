@@ -12,7 +12,7 @@
       
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title">My Applications</h3>
+            <h3 class="card-title float-start px-2">My Applications</h3>
           </div>
           <div class="card-body border-bottom py-3">
             <div class="d-flex">
@@ -47,16 +47,15 @@
                 @endphp
 
                 @foreach($listings as $listing)
-                    @if ($listing->user_id != Auth::user()->id)
-                        @continue
-                    @endif
+                    @if ($listing->user_id == Auth::user()->id && !isset($listing->dater))
+
                 <tr>
                   <td>
                     <input class="form-check-input m-0 align-middle" type="checkbox" aria-label="Select invoice">
                   </td>
                   <td>
                     <span class="text-muted">
-                     {{ $counter++; }}
+                     {{ $counter++; }} {{ $listing->dater }}
                     </span>
                   </td>
                   <td><a href="invoice.html" class="text-reset" tabindex="-1">{{ $listing->name }}</a></td>
@@ -67,10 +66,12 @@
                     {{ $listing->type }}
                   </td>
                   <td>
-                    @if ($listing->taxed != 1)
-                        <span class="badge rounded-pill bg-warning">Pending</span>
-                    @else
-                        <span class="badge rounded-pill bg-success">Accepted</span>
+                    @if ($listing->taxed == 1 && $listing->gvt == 1)
+                        <span class="badge bg-green-lt rounded-pill bg-success">Accepted</span>
+                    @elseif ($listing->taxed === 0 || $listing->gvt === 0) 
+                        <span class="badge bg-red-lt text-danger rounded-pill bg-warning">Rejected</span>
+                    @else 
+                        <span class="badge bg-yellow-lt text-warning rounded-pill bg-warning">Pending</span>
                     @endif
                   </td>
                   <td>
@@ -78,10 +79,11 @@
                     NULL
                   </td>
                   <td>
-                    <button class="btn btn-danger">Delete</button>
-                    <button class="btn btn-success">view</button>
+                    {{-- <button class="btn btn-danger">Delete</button> --}}
+                    <a href="applicant/myapp/{{$listing->id}}" class="btn btn-success">view</a>
                   </td>
                 </tr>
+                  @endif
                 @endforeach
               </tbody>
             </table>

@@ -15,7 +15,7 @@ var currentTab = 0;
               document.getElementById("prevBtn").style.display = "inline";
               }
               if (n == (x.length - 1)) {
-              document.getElementById("nextBtn").innerHTML = 'Prev';
+              document.getElementById("nextBtn").innerHTML = 'Finish';
               } else {
               document.getElementById("nextBtn").innerHTML = 'Next';
               }
@@ -163,3 +163,41 @@ window.onload = function () {
         }
 
 }
+
+//this is for the rounded progress bar
+
+document.addEventListener("DOMContentLoaded", function () {
+    window.ApexCharts && (new ApexCharts(document.getElementById('sparkline-status'), {
+        chart: {
+            type: "radialBar",
+            fontFamily: 'inherit',
+            height: 40,
+            width: 40,
+            animations: {
+                enabled: true
+            },
+            sparkline: {
+                enabled: true
+            },
+        },
+        tooltip: {
+            enabled: false,
+        },
+        plotOptions: {
+            radialBar: {
+                hollow: {
+                    margin: 0,
+                    size: '75%'
+                },
+                track: {
+                    margin: 0
+                },
+                dataLabels: {
+                    show: false
+                }
+            }
+        },
+        colors: [tabler.getColor("yellow")],
+        series: [90],
+    })).render();
+});

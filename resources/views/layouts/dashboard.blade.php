@@ -71,7 +71,9 @@
             </div>
             <div class="nav-item dropdown">
               <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
-                <span class="avatar avatar-sm" style="background-image: url(./tabler/static/avatars/000m.jpg)"></span>
+                <span class="avatar avatar-sm bg-primary-lt" style="background-image: url(./static/avatars/000m.jpg)">
+                  <i class="fa fa-user"></i>
+                </span>
                 <div class="d-none d-xl-block ps-2">
                   <div>{{ Auth::user()->firstname }} {{ Auth::user()->lastname }}</div>
                   <div class="mt-1 small text-muted">
@@ -96,11 +98,8 @@
                 </div>
               </a>
               <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                <a href="#" class="dropdown-item">Status</a>
                 <a href="./profile.html" class="dropdown-item">Profile</a>
-                <a href="#" class="dropdown-item">Feedback</a>
                 <div class="dropdown-divider"></div>
-                <a href="./settings.html" class="dropdown-item">Settings</a>
                 <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     Logout
                 </a>
@@ -137,9 +136,28 @@
                       Manage Users
                     </a>
                     @endif
+
+                    @if (Auth::user()->role == "gvt")
+                    <a class="dropdown-item" href="/gvt/paycode">
+                      Verified Applicants
+                    </a>
+                    @endif
+
+                    @if (Auth::user()->role == "tax")
+                    <a class="dropdown-item" href="/tax/applications/pending">
+                      Pending Applications
+                    </a>
+                    <a class="dropdown-item" href="/tax/applications/rejected">
+                      Rejected Applications
+                    </a>
+                    @endif
+
                     @if (Auth::user()->role == "applicant")
                     <a class="dropdown-item" href="/applicant/myapps">
                       My applications
+                    </a>
+                    <a class="dropdown-item" href="/applicant/goodapps">
+                      Confirmed Applications
                     </a>
                     @endif
                     <a class="dropdown-item" href="#" target="_blank" rel="noopener">
@@ -190,6 +208,7 @@
       </div>
     </div>
     <!-- Libs JS -->
+    <script src="./tabler/dist/libs/apexcharts/dist/apexcharts.min.js?1674944402" defer></script>
     <!-- Tabler Core -->
     <script src="./tabler/dist/js/tabler.min.js?1674944402" defer></script>
     <script src="./tabler/dist/js/demo.min.js?1674944402" defer></script>

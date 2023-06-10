@@ -10,5 +10,5 @@ class Application extends Model
     use HasFactory;
 
     protected $guarded = [];
-    protected $table = "application";
+    protected $table = 'application';
 }
