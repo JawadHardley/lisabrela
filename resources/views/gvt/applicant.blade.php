@@ -19,7 +19,7 @@
                     <a class="list-group-item list-group-item-action d-flex align-items-center active">Application</a>
                   </div>
 
-                  @if ($app->taxed == 1 && $app->gvt == 1)
+                  @if (($app->taxed == 1 && $app->gvt == 1) && $app->paid != 1)
                   <div class="list-group list-group-transparent">
                     <a href="./settings.html" class="list-group-item list-group-item-action d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#modal-team">Set Price</a>
                   </div>
@@ -120,9 +120,13 @@
                                         @endif
                                       </div>
                                     </div>
+                                    @if ($app->paid != 1)
+                                    @if ($pay->paid === 1 || $pay->paid === 3)
                                     <div class="col-2">
                                       <button class="btn float-end dropdown-toggle align-text-top" data-bs-boundary="viewport" data-bs-toggle="dropdown">Actions</button>
                                       <div class="dropdown-menu dropdown-menu-end">
+                                        
+                                        
                                         <form class="" method="POST" action="/gvt/payment/cancel/{{$pay->id}}">
                                           @csrf
                                           @method('DELETE')
@@ -146,6 +150,8 @@
                                         </form>
                                       </div>
                                     </div>
+                                    @endif
+                                    @endif
                                   </div>
                                 </div>
                             </div>
@@ -413,7 +419,7 @@
                     </form>
 
                     @elseif ($app->gvt === 1 || $app->gvt === 0)
-
+                      @if($app->paid != 1)
                     <form class="float-end" method="POST" action="/gvt/applicant/approve/{{$app->id}}">
                         @csrf
                         @method('PUT')
@@ -455,7 +461,7 @@
                         </div>
                       </div>
                     </form>
-
+                      @endif
                     @endif
 
                   </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\License;
+use App\Models\Listing;
 use Barryvdh\DomPDF\PDF;
 use App\Models\Application;
 use Illuminate\Http\Request;
@@ -24,6 +25,7 @@ class PDFController extends Controller
         // dd($data[0]->district);
         $data3 = PDFController::gvt_asked($data->district);
         $data2 = PDFController::leseni_asked(Auth::user()->id);
+        $data4 = PDFController::user_asked(Auth::user()->id);
 
         // return view('applicant.license', [
         //     'listings' => $data,
@@ -34,13 +36,14 @@ class PDFController extends Controller
             'listing' => $data,
             'user' => $data3,
             'license' => $data2,
+            'owner' => $data4,
         ]; 
             
         $pdf = app('dompdf.wrapper');
         $pdf->loadView('myPDF', $send);
         // $pdf = PDF::loadView('myPDF', $data);
-     
-        return $pdf->download('License.pdf');
+        // dd($data4);
+        return $pdf->download('License' . $data2['license_number'] . '.pdf');
     }
 
     public function app_asked () {
@@ -48,6 +51,18 @@ class PDFController extends Controller
         $data = Application::all();
         foreach ($data as $key) {
             if ((($key->gvt == 1 && $key->taxed == 1) && $key->user_id == Auth::user()->id) && $key->paid == 1) {
+                // dd($data);
+                $backer = $key;
+            }
+        }
+        return $backer;
+    }
+
+    public function user_asked () {
+        $backer = "";
+        $data = Listing::all();
+        foreach ($data as $key) {
+            if ($key->id == Auth::user()->id) {
                 // dd($data);
                 $backer = $key;
             }

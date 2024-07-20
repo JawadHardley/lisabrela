@@ -39,6 +39,15 @@ class LicenseController extends Controller
 
         $formFields['expire'] = $date;
 
+        $year = $currentTime->toArray()['year'];
+        $month = $currentTime->toArray()['month'];
+        $day = $currentTime->toArray()['day'];
+        $date = $year . "-" . $month . "-" . $day;
+
+        DB::table('application')
+       ->where('id', $request->app_id)
+       ->update(['dater' => $date]);
+
         License::create($formFields);
 
         return back()->with('message', 'License created successfully!');

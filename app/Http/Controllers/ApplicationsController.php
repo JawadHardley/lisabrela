@@ -26,10 +26,16 @@ class ApplicationsController extends Controller
      * Display a listing of the resource.
      */
     public function index_license() {
-        $data = ApplicationsController::app_asked();
-        // dd($data[0]->district);
-        $data3 = ApplicationsController::gvt_asked($data[0]->district);
-        $data2 = ApplicationsController::leseni_asked(Auth::user()->id);
+        $data = ApplicationsController::app_askedl();
+        
+        if ($data === "") {
+            $data3 = "";
+            $data2 = "";
+        }else {
+            $data3 = ApplicationsController::gvt_asked($data->district);
+            $data2 = ApplicationsController::leseni_asked2(Auth::user()->id);
+            // dd($data);
+        }
 
         return view('applicant.license', [
             'listings' => $data,
@@ -58,6 +64,19 @@ class ApplicationsController extends Controller
             if (($key->gvt == 1 && $key->taxed == 1) && $key->user_id == Auth::user()->id) {
                 // dd($data);
                 array_push($backer, $key);
+            }
+        }
+        return $backer;
+    }
+
+    //return user to function
+    public function app_askedl () {
+        $backer = "";
+        $data = Application::all();
+        foreach ($data as $key) {
+            if ((($key->gvt == 1 && $key->taxed == 1) && $key->user_id == Auth::user()->id) && $key->paid == 1) {
+                // dd($data);
+                $backer = $key;
             }
         }
         return $backer;
@@ -103,6 +122,18 @@ class ApplicationsController extends Controller
         return $backer;
     }
 
+     //return user to function
+     public function leseni_asked2 ($id) {
+        $backer = [];
+        $data = License::all();
+        foreach ($data as $key) {
+            if ($key->user_id == $id) {
+                // dd($data);
+                array_push($backer, $key);
+            }
+        }
+        return $backer;
+    }
 
     /**
      * Display a listing of the resource.

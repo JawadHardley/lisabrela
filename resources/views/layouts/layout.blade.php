@@ -47,7 +47,7 @@
             <a href="." class="text-decoration-none">
               <h1 style="font-family: gotham light;">
                 <i class="fa fa-cubes"></i>
-                <span class="text-danger">BRE</span><span class="text-primary">LA</span>
+                <span class="text-danger">OB</span><span class="text-primary">RS</span>
               </h1>
             </a>
           </h1>

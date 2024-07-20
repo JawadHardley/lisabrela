@@ -94,7 +94,7 @@ $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
                             <ol>
                                 <li>Issuing Office: <b>BUSINESS REGISTRATION AND LICENSING AGENCY</b></li>
                                 <li>Issuing Agency: <b>Regulatory Bodies</b></li>
-                                <li>License Issued To: <b>{{ Auth::user()->firstname." ".Auth::user()->lastname }}</b></li>
+                                <li>License Issued To: <b>{{ Auth::user()->firstname ." ". Auth::user()->lastname }}</b></li>
                                 <p style="color: #0a121c">for</p>
                                 <li>Business Details: <br>
                                     <div class="row" style="margin-top: 5px;margin-left: 20px;"><div class="col-md-1" >Business Name: <b>{{ $listing->name }}</b></div></div>

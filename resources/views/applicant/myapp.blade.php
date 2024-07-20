@@ -102,7 +102,7 @@
                             @elseif ($app->paid == 1)
                             <span class="badge bg-green-lt rounded-pill">Application Approved</span>
                             <p class="p-2">
-                                Payment done, you cant now download your license <a href="#">here</a>
+                                Payment done, you can now download your license <a href="#">here</a>
                             </p>
                             @endif
                         </div>
@@ -142,9 +142,9 @@
                                         <form class="" method="POST" action="/gvt/payment/cancel/{{$pay->id}}">
                                           @csrf
                                           @method('DELETE')
-                                          <button type="submit" class="dropdown-item">
+                                          {{-- <button type="submit" class="dropdown-item">
                                             Delete
-                                          </button>
+                                          </button> --}}
                                         </form>
                                         {{-- <form class="" method="POST" action="/gvt/payment/deny/{{$pay->id}}">
                                           @csrf

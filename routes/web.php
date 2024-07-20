@@ -89,6 +89,6 @@ Route::any('/tax/comments', [CommentsController::class, 'store'])->middleware('t
 // Update application tax clearance status
 Route::any('/tax/applicant/approve/{application}', [ApplicationsController::class, 'status'])->middleware('tax');
 
-// Route::get('generate-pdf', [PDFController::class, 'generatePDF']);
-Route::get('/generate-pdf', 'App\Http\Controllers\PdfController@generatePDF');
+// Route::get('/generate-pdf', [PDFController::class, 'generatePDF']);
+Route::get('/generate-pdf', 'App\Http\Controllers\PDFController@generatePDF');
 // Route::get('/generate-pdf', 'App\Http\Controllers\ApplicantController@generatePDF');

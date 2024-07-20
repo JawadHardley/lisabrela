@@ -46,8 +46,9 @@
                 $counter = 1;    
 
                 @endphp
-
-                @foreach($listings as $listing)
+                
+                @if ($license !== "")
+                @foreach($license as $licenses)
 
                 <tr>
                   <td>
@@ -55,35 +56,47 @@
                   </td>
                   <td>
                     <span class="text-muted">
-                     {{ $counter++; }} {{ $listing->dater }}
+                     {{ $counter++; }} {{ $listings->dater }}
                     </span>
                   </td>
-                  <td><a href="invoice.html" class="text-reset" tabindex="-1">{{ $listing->name }}</a></td>
+                  <td><a href="invoice.html" class="text-reset" tabindex="-1">{{ $listings->name }}</a></td>
                   <td>
-                    {{ $license->license_number }}
+                    {{ $licenses->license_number }}
                   </td>
                   <td>
-                    {{ $listing->type }}
+                    {{ $listings->type }}
                   </td>
                   <td>
                     {{ $user->firstname }} {{ $user->lastname }}
                   </td>
                   <td>
-                    @if (1 === 1)
-                        <span class="badge bg-green-lt rounded-pill bg-success">Active</span>
-                    @else
+                    @php
+
+                      $time = date('d-m-Y');
+                    @endphp
+
+                    @if (strtotime($time) > strtotime($licenses->expire))
                         <span class="badge bg-red-lt text-danger rounded-pill bg-warning">Expired</span>
+                    @else
+                        <span class="badge bg-green-lt rounded-pill bg-success">Active</span>
                     @endif
                   </td>
                   <td>
-                    {{ $license->expire }}
+                    {{ $licenses->expire }}
                   </td>
                   <td>
+                    @if (strtotime($time) > strtotime($licenses->expire))
                     {{-- <button class="btn btn-danger">Delete</button> --}}
+                    <a href="#" class="btn btn-blue">Renew</a>
+                    @else
                     <a href="/generate-pdf" class="btn btn-blue">Download</a>
+                    @endif
                   </td>
                 </tr>
                 @endforeach
+                @else
+                  <tr>No License yet</tr>
+                @endif
               </tbody>
             </table>
           </div>
@@ -99,5 +112,8 @@
           </div>
         </div>
       </div>
+
+
+      
 
 @endsection

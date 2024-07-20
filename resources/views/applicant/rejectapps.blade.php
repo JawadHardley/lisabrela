@@ -81,6 +81,30 @@
                   </td>
                   <td>
                     <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteapp">Delete</button>
+
+                    
+                    <form class="float-end" method="POST" action="/applicant/delete/{{$listing->id}}">
+                      @csrf
+                      @method('DELETE')
+                      
+                      <!-- Modal -->
+                      <div class="modal modal-blur fade" id="deleteapp" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+                          <div class="modal-content">
+                            <div class="modal-body">
+                              <div class="modal-title">Are you sure?</div>
+                              <div>Are you sure you want to delete this Application</div>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-link link-secondary me-auto" data-bs-dismiss="modal">Cancel</button>
+                              <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">Yes, delete</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+
+
                     <a href="applicant/myapp/{{$listing->id}}" class="btn btn-success">view</a>
                   </td>
                 </tr>
@@ -104,25 +128,5 @@
       </div>
 
 
-      <form class="float-end" method="POST" action="/applicant/delete/{{$listing->id}}">
-        @csrf
-        @method('DELETE')
-        
-        <!-- Modal -->
-        <div class="modal modal-blur fade" id="deleteapp" tabindex="-1" role="dialog" aria-hidden="true">
-          <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
-            <div class="modal-content">
-              <div class="modal-body">
-                <div class="modal-title">Are you sure?</div>
-                <div>Are you sure you want to delete this Application</div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-link link-secondary me-auto" data-bs-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">Yes, delete</button>
-              </div>
-            </div>
-          </div>
-        </div>
-    </form>
 
 @endsection

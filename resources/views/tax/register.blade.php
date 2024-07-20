@@ -14,7 +14,7 @@
             <p class="display-3 text-center">
               <i class="fa fa-cubes"></i>
             </p>
-          <h2 class="card-title text-center">Register Account <p class="small">(Applicant)</p></h2>
+          <h2 class="card-title text-center">Register Account <p class="small">(Tax C. Officer)</p></h2>
           <hr>
           <div class="row row-cards">
             <div class="col-sm-6 col-md-6">
